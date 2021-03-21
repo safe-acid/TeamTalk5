@@ -9,8 +9,6 @@ env:
   VIDEODEVICEID: None
   OPUSTOOLS: 0
   VERBOSE: 0
-  VIDEOFILE: $GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Video/MOV03830.MPG
-  AUDIOFILE: $GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Opus/giana.ogg
 
 jobs:
   build:
@@ -123,12 +121,16 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: |
         export ENCRYPTED=0 WEBRTC=0
+        export VIDEOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Video/MOV03830.MPG
+        export AUDIOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Opus/giana.ogg
         make runjunitsrv
 
     - name: Java Server API Test (encrypted)
       working-directory: ${{runner.workspace}}/TeamTalk5/Library/TeamTalkJNI
       run: |
         export ENCRYPTED=1 WEBRTC=0
+        export VIDEOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Video/MOV03830.MPG
+        export AUDIOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Opus/giana.ogg
         make runjunitsrv
 
     - name: Start TeamTalk Standard Server
@@ -163,6 +165,8 @@ jobs:
       working-directory: ${{runner.workspace}}/TeamTalk5/Library/TeamTalkJNI
       run: |
         export ENCRYPTED=0 WEBRTC=0
+        export VIDEOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Video/MOV03830.MPG
+        export AUDIOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Opus/giana.ogg
         make runjunit
 
     - name: Stop TeamTalk Standard Server
@@ -180,6 +184,8 @@ jobs:
         export ENCRYPTED=0 WEBRTC=0
         export INPUTDEVICEID=4026
         export OUTPUTDEVICEID=4026
+        export VIDEOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Video/MOV03830.MPG
+        export AUDIOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Opus/giana.ogg
         make runjunitpro
 
     - name: Stop TeamTalk Pro Server (non-encrypted)
@@ -199,6 +205,8 @@ jobs:
         export ENCRYPTED=1 WEBRTC=0
         export INPUTDEVICEID=1978
         export OUTPUTDEVICEID=1978
+        export VIDEOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Video/MOV03830.MPG
+        export AUDIOFILE=$GITHUB_WORKSPACE/TeamTalk5/Library/TeamTalkLib/test/testdata/Opus/giana.ogg
         make runjunitpro
 
     - name: Stop TeamTalk Pro Server (encrypted)

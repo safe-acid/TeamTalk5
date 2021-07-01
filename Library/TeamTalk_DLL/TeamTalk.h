@@ -1590,6 +1590,17 @@ extern "C" {
         TTBOOL bPaused;
         /** @brief Option to activate audio preprocessor on local media file playback. */
         AudioPreprocessor audioPreprocessor;
+        /**
+         * @brief Return to initial state after #MFS_FINISHED.
+         *
+         * By default TT_InitLocalPlayback() and
+         * TT_StartStreamingMediaFileToChannel() work as
+         * fire-and-forget where the session cleans up itself after
+         * #MFS_FINISHED.  If @c bRestartable is TRUE then the session
+         * will return to its initial state and
+         * TT_UpdateLocalPlayback() can be used to restart playback
+         * using the same session ID. */
+        TTBOOL bRestartable;
     } MediaFilePlayback;
 
     /** @brief The progress of the audio currently being processed as

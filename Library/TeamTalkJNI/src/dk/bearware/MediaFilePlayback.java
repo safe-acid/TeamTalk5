@@ -27,6 +27,7 @@ public class MediaFilePlayback {
     
     public int uOffsetMSec;
     public boolean bPaused;
+    public boolean bRestartable;
     public AudioPreprocessor audioPreprocessor = new AudioPreprocessor();
     
     public MediaFilePlayback() {

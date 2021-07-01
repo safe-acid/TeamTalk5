@@ -112,7 +112,7 @@ void MediaStreamer::RegisterAudioCallback(mediastream_audiocallback_t cb, bool e
 
 bool MediaStreamer::Open()
 {
-    m_thread.reset(new std::thread(&MediaStreamer::Run, this));
+    m_thread.reset(new std::thread(&MediaStreamer::ThreadFunc, this));
 
     bool ret = false;
     m_open.get(ret);
@@ -136,6 +136,7 @@ void MediaStreamer::Close()
 
     m_open.cancel();
     m_run.cancel();
+    m_done.cancel();
 }
 
 bool MediaStreamer::StartStream()
@@ -166,7 +167,15 @@ bool MediaStreamer::Pause()
 
 bool MediaStreamer::Completed() const
 {
-    return !m_thread || m_thread->get_id() == std::thread::id();
+    bool done = false;
+    ACE_Time_Value zero;
+    return !m_thread || m_done.get(done, &zero) >= 0 && done;
+}
+
+void MediaStreamer::ThreadFunc()
+{
+    Run();
+    m_done.set(true);
 }
 
 bool MediaStreamer::QueueAudio(const media::AudioFrame& frame)
@@ -543,6 +552,17 @@ void MediaFileStreamer::RegisterStatusCallback(mediastream_statuscallback_t cb, 
         m_statuscallback = {};
 }
 
+void MediaFileStreamer::ThreadFunc()
+{
+    do
+    {
+        Run();
+        m_run.cancel();
+    }
+    while (m_restartable);
+    m_done.set(true);
+}
+
 ACE_UINT32 MediaFileStreamer::SetOffset(ACE_UINT32 offset)
 {
     std::lock_guard<std::mutex> g(m_mutex);
@@ -551,3 +571,7 @@ ACE_UINT32 MediaFileStreamer::SetOffset(ACE_UINT32 offset)
     return prev;
 }
 
+void MediaFileStreamer::SetRestart(bool restartable)
+{
+    m_restartable = restartable;
+}

@@ -2004,10 +2004,12 @@ void setMediaFilePlayback(JNIEnv* env, MediaFilePlayback& playback, jobject lpMe
     jclass cls = env->GetObjectClass(lpMediaPlayback);
     jfieldID fid_off = env->GetFieldID(cls, "uOffsetMSec", "I");
     jfieldID fid_pause = env->GetFieldID(cls, "bPaused", "Z");
+    jfieldID fid_restart = env->GetFieldID(cls, "bRestartable", "Z");
     jfieldID fid_pre = env->GetFieldID(cls, "audioPreprocessor", "Ldk/bearware/AudioPreprocessor;");
 
     assert(fid_off);
     assert(fid_pause);
+    assert(fid_restart);
     assert(fid_pre);
 
     jobject pre = env->GetObjectField(lpMediaPlayback, fid_pre);
@@ -2015,12 +2017,13 @@ void setMediaFilePlayback(JNIEnv* env, MediaFilePlayback& playback, jobject lpMe
     if (conv == N2J) {
         env->SetIntField(lpMediaPlayback, fid_off, playback.uOffsetMSec);
         env->SetBooleanField(lpMediaPlayback, fid_pause, playback.bPaused);
+        env->SetBooleanField(lpMediaPlayback, fid_restart, playback.bRestartable);
         setAudioPreprocessor(env, playback.audioPreprocessor, pre, conv);
     }
-    else
-    {
+    else {
         playback.uOffsetMSec = env->GetIntField(lpMediaPlayback, fid_off);
         playback.bPaused = env->GetBooleanField(lpMediaPlayback, fid_pause);
+        playback.bRestartable = env->GetBooleanField(lpMediaPlayback, fid_restart);
         setAudioPreprocessor(env, playback.audioPreprocessor, pre, conv);
     }
 }

@@ -168,6 +168,15 @@ bool MediaPlayback::Seek(ACE_UINT32 offset)
     return true;
 }
 
+bool MediaPlayback::SetRestart(bool restartable)
+{
+    if(!m_streamer)
+        return false;
+
+    m_streamer->SetRestart(restartable);
+    return true;
+}
+
 void MediaPlayback::MuteSound(bool leftchannel, bool rightchannel)
 {
     m_stereo = ToStereoMask(leftchannel, rightchannel);

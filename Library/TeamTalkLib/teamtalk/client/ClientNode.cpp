@@ -3217,6 +3217,7 @@ bool ClientNode::StartMTUQuery()
 
 bool ClientNode::StartStreamingMediaFile(const ACE_TString& filename,
                                          uint32_t offset, bool paused,
+                                         bool restartable,
                                          const AudioPreprocessor& preprocessor,
                                          const VideoCodec& vid_codec)
 {
@@ -3295,7 +3296,7 @@ bool ClientNode::StartStreamingMediaFile(const ACE_TString& filename,
     //both audio and video part of mediafile use same stream id
     GEN_NEXT_ID(m_mediafile_stream_id);
 
-    if (!UpdateStreamingMediaFile(offset, paused, preprocessor, vid_codec))
+    if (!UpdateStreamingMediaFile(offset, paused, restartable, preprocessor, vid_codec))
     {
         StopStreamingMediaFile();
         return false;
@@ -3310,7 +3311,7 @@ bool ClientNode::StartStreamingMediaFile(const ACE_TString& filename,
     return true;
 }
 
-bool ClientNode::UpdateStreamingMediaFile(uint32_t offset, bool paused,
+bool ClientNode::UpdateStreamingMediaFile(uint32_t offset, bool paused, bool restartable,
                                           const AudioPreprocessor& preprocessor,
                                           const VideoCodec& vid_codec)
 {
@@ -3332,6 +3333,8 @@ bool ClientNode::UpdateStreamingMediaFile(uint32_t offset, bool paused,
 
     if (offset != MEDIASTREAMER_OFFSET_IGNORE)
         m_mediafile_streamer->SetOffset(offset);
+
+    m_mediafile_streamer->SetRestart(restartable);
 
     if (paused)
         return m_mediafile_streamer->Pause();
@@ -3373,7 +3376,7 @@ void ClientNode::StopStreamingMediaFile()
 }
 
 int ClientNode::InitMediaPlayback(const ACE_TString& filename, uint32_t offset, bool paused, 
-                                  const AudioPreprocessor& preprocessor)
+                                  bool restartable, const AudioPreprocessor& preprocessor)
 {
     ASSERT_REACTOR_LOCKED(this);
 
@@ -3407,7 +3410,7 @@ int ClientNode::InitMediaPlayback(const ACE_TString& filename, uint32_t offset, 
 
     m_mediaplayback_streams[m_mediaplayback_counter] = playback;
 
-    if (!UpdateMediaPlayback(m_mediaplayback_counter, offset, paused, preprocessor))
+    if (!UpdateMediaPlayback(m_mediaplayback_counter, offset, paused, restartable, preprocessor))
     {
         m_mediaplayback_streams.erase(m_mediaplayback_counter);
         return 0;
@@ -3425,7 +3428,7 @@ int ClientNode::InitMediaPlayback(const ACE_TString& filename, uint32_t offset, 
     return m_mediaplayback_counter;
 }
 
-bool ClientNode::UpdateMediaPlayback(int id, uint32_t offset, bool paused, 
+bool ClientNode::UpdateMediaPlayback(int id, uint32_t offset, bool paused, bool restartable,
                                      const AudioPreprocessor& preprocessor, bool /*initial*/)
 {
     ASSERT_REACTOR_LOCKED(this);

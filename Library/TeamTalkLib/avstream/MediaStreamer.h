@@ -60,7 +60,6 @@ struct MediaFileProp : public MediaStream
 struct MediaStreamOutput : public MediaStream
 {
     // 'audio_samples' and 'audio_duration_ms' are mutually exclusive
-    // and therefore set as const
     int audio_samples = 0;
     uint32_t audio_duration_ms = 0;
     MediaStreamOutput() {}
@@ -137,6 +136,7 @@ protected:
 
     void Close();
 
+    virtual void ThreadFunc();
     virtual void Run() = 0;
     virtual void AudioProgress(uint32_t queuedmsec, uint32_t elapsedmsec) {}
 
@@ -152,7 +152,7 @@ protected:
     MediaStreamOutput m_media_out;
     
     std::shared_ptr< std::thread > m_thread;
-    ACE_Future<bool> m_open, m_run;
+    ACE_Future<bool> m_open, m_run, m_done;
     bool m_pause = false;
     bool m_stop = false;
     
@@ -180,17 +180,20 @@ public:
     
     // return previous offset (was)
     ACE_UINT32 SetOffset(ACE_UINT32 offset);
+    void SetRestart(bool restartable);
 
     const MediaFileProp& GetMediaFile() const { return m_media_in; }
     
 protected:
+    void ThreadFunc();
+
     MediaFileProp m_media_in;
     
     mediastream_statuscallback_t m_statuscallback;
 
     std::mutex m_mutex;
     ACE_UINT32 m_offset = MEDIASTREAMER_OFFSET_IGNORE;
-    
+    bool m_restartable = false;
 };
 
 typedef std::shared_ptr< MediaFileStreamer > mediafile_streamer_t;

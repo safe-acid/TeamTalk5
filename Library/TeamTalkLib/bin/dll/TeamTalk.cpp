@@ -2125,7 +2125,8 @@ TEAMTALKDLL_API TTBOOL TT_StartStreamingMediaFileToChannelEx(IN TTInstance* lpTT
         Convert(*lpVideoCodec, vid_codec);
 
     return clientnode->StartStreamingMediaFile(szMediaFilePath, lpMediaFilePlayback->uOffsetMSec,
-                                               lpMediaFilePlayback->bPaused, preprocessor, vid_codec);
+                                               lpMediaFilePlayback->bPaused, lpMediaFilePlayback->bRestartable,
+                                               preprocessor, vid_codec);
 }
 
 TEAMTALKDLL_API TTBOOL TT_UpdateStreamingMediaFileToChannel(IN TTInstance* lpTTInstance,
@@ -2147,6 +2148,7 @@ TEAMTALKDLL_API TTBOOL TT_UpdateStreamingMediaFileToChannel(IN TTInstance* lpTTI
 
     return clientnode->UpdateStreamingMediaFile(lpMediaFilePlayback->uOffsetMSec,
                                                 lpMediaFilePlayback->bPaused,
+                                                lpMediaFilePlayback->bRestartable,
                                                 preprocessor, vid_codec);
 }
 
@@ -2169,7 +2171,8 @@ TEAMTALKDLL_API INT32 TT_InitLocalPlayback(IN TTInstance* lpTTInstance,
     Convert(lpMediaFilePlayback->audioPreprocessor, preprocessor);
 
     return clientnode->InitMediaPlayback(szMediaFilePath, lpMediaFilePlayback->uOffsetMSec, 
-                                          lpMediaFilePlayback->bPaused, preprocessor);
+                                         lpMediaFilePlayback->bPaused, lpMediaFilePlayback->bRestartable,
+                                         preprocessor);
 }
 
 TEAMTALKDLL_API TTBOOL TT_UpdateLocalPlayback(IN TTInstance* lpTTInstance,
@@ -2183,7 +2186,8 @@ TEAMTALKDLL_API TTBOOL TT_UpdateLocalPlayback(IN TTInstance* lpTTInstance,
     Convert(lpMediaFilePlayback->audioPreprocessor, preprocessor);
 
     return clientnode->UpdateMediaPlayback(nPlaybackSessionID, lpMediaFilePlayback->uOffsetMSec,
-                                            lpMediaFilePlayback->bPaused, preprocessor);
+                                           lpMediaFilePlayback->bPaused, lpMediaFilePlayback->bRestartable,
+                                           preprocessor);
 }
 
 TEAMTALKDLL_API TTBOOL TT_StopLocalPlayback(IN TTInstance* lpTTInstance,

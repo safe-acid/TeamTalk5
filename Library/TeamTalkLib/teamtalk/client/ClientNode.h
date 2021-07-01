@@ -253,18 +253,18 @@ namespace teamtalk {
 
         //stream media file (DirectShow wrapper)
         bool StartStreamingMediaFile(const ACE_TString& filename,
-                                     uint32_t offset, bool paused,
+                                     uint32_t offset, bool paused, bool restartable,
                                      const AudioPreprocessor& preprocessor,
                                      const VideoCodec& vid_codec);
-        bool UpdateStreamingMediaFile(uint32_t offset, bool paused,
+        bool UpdateStreamingMediaFile(uint32_t offset, bool paused, bool restartable,
                                       const AudioPreprocessor& preprocessor,
                                       const VideoCodec& vid_codec);
         void StopStreamingMediaFile();
 
         // playback local media file
-        int InitMediaPlayback(const ACE_TString& filename, uint32_t offset,
+        int InitMediaPlayback(const ACE_TString& filename, uint32_t offset, bool restartable,
                               bool paused, const AudioPreprocessor& preprocessor);
-        bool UpdateMediaPlayback(int id, uint32_t offset, bool paused, 
+        bool UpdateMediaPlayback(int id, uint32_t offset, bool paused, bool restartable,
                                  const AudioPreprocessor& preprocessor, bool initial = false);
         bool StopMediaPlayback(int id);
 

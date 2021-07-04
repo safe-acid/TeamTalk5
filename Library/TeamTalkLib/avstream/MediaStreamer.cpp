@@ -169,7 +169,7 @@ bool MediaStreamer::Completed() const
 {
     bool done = false;
     ACE_Time_Value zero;
-    return !m_thread || m_done.get(done, &zero) >= 0 && done;
+    return !m_thread || (m_done.get(done, &zero) >= 0 && done);
 }
 
 void MediaStreamer::ThreadFunc()
@@ -557,6 +557,7 @@ void MediaFileStreamer::ThreadFunc()
     do
     {
         Run();
+        // auto start again (m_run.get() will block again)
         m_run.cancel();
     }
     while (m_restartable);

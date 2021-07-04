@@ -3223,9 +3223,15 @@ bool ClientNode::StartStreamingMediaFile(const ACE_TString& filename,
 {
     ASSERT_REACTOR_LOCKED(this);
 
+    // Media streaming is stopped by a timer to avoid deadlock.
+    // First stop media stream if it is completed.
+    if (m_mediafile_streamer && m_mediafile_streamer->Completed())
+        StopStreamingMediaFile();
+
     //don't allow video streaming if not in channel or already streaming
     if (!m_mychannel)
         return false;
+
     if ((m_flags & CLIENT_STREAM_VIDEOFILE) || (m_flags & CLIENT_STREAM_AUDIOFILE))
         return false;
 
@@ -3315,7 +3321,7 @@ bool ClientNode::UpdateStreamingMediaFile(uint32_t offset, bool paused, bool res
                                           const AudioPreprocessor& preprocessor,
                                           const VideoCodec& vid_codec)
 {
-    if (!m_mediafile_streamer)
+    if (!m_mediafile_streamer || m_mediafile_streamer->Completed())
         return false;
 
     if (m_videofile_thread)
@@ -3358,6 +3364,9 @@ void ClientNode::StopStreamingMediaFile()
         AudioUserCallback(LOCAL_USERID, STREAMTYPE_MEDIAFILE_AUDIO, media::AudioFrame());
 
         m_mediafile_streamer.reset();
+
+        if (TimerExists(TIMER_STOP_STREAM_MEDIAFILE_ID))
+            StopTimer(TIMER_STOP_STREAM_MEDIAFILE_ID);
     }
 
     if(clear_video)

@@ -4219,7 +4219,6 @@ public abstract class TeamTalkTestCase extends TeamTalkTestCaseBase {
 
         while (waitForEvent(ttclient, ClientEvent.CLIENTEVENT_STREAM_MEDIAFILE, DEF_WAIT, msg) &&
                msg.mediafileinfo.nStatus != MediaFileStatus.MFS_FINISHED);
-        waitForEvent(ttclient, ClientEvent.CLIENTEVENT_NONE, 1000);
         assertFalse("Stream dead", ttclient.updateStreamingMediaFileToChannel(mfp, null));
     }
 

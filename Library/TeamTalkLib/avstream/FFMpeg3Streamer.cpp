@@ -590,6 +590,7 @@ int64_t FFMpegStreamer::ProcessAudioBuffer(AVFilterContext* aud_buffersink_ctx,
     media_frame.timestamp = frame_timestamp;
     media_frame.input_buffer = audio_data;
     media_frame.input_samples = filt_frame->nb_samples;
+    assert(m_media_out.audio.channels == n_channels);
     media_frame.inputfmt = m_media_out.audio;
     QueueAudio(media_frame);
         

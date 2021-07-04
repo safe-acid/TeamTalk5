@@ -521,6 +521,9 @@ void FFMpegStreamer::Run()
 
     while(!m_stop && ProcessAVQueues(start_time, GETTIMESTAMP() - totalpausetime, true));
 
+    // allow to join thread now
+    m_done.set(true);
+
     //don't do callback if thread is asked to quit
     if (m_statuscallback && !m_stop)
         m_statuscallback(m_media_in, MEDIASTREAM_FINISHED);
@@ -529,6 +532,9 @@ void FFMpegStreamer::Run()
     goto end;
 
 fail:
+    // allow to join thread now
+    m_done.set(true);
+
     //don't do callback if thread is asked to quit
     if (m_statuscallback && !m_stop)
         m_statuscallback(m_media_in, MEDIASTREAM_ERROR);

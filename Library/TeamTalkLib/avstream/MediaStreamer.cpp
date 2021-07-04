@@ -165,11 +165,19 @@ bool MediaStreamer::Pause()
     return true;
 }
 
-bool MediaStreamer::Completed() const
+bool MediaStreamer::Completed()
 {
+    if (!m_thread)
+        return true;
+
     bool done = false;
     ACE_Time_Value zero;
-    return !m_thread || (m_done.get(done, &zero) >= 0 && done);
+    if (m_done.get(done, &zero) >= 0 && done)
+    {
+        Close();
+        return true;
+    }
+    return false;
 }
 
 void MediaStreamer::ThreadFunc()

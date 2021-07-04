@@ -466,7 +466,7 @@ int ClientNode::TimerEvent(ACE_UINT32 timer_event_id, long userdata)
             ret = -1;
         else if (m_mediafile_streamer->Completed())
         {
-            StopStreamingMediaFile();
+            StopStreamingMediaFile(false);
             ret = -1;
         }
         else
@@ -3350,7 +3350,7 @@ bool ClientNode::UpdateStreamingMediaFile(uint32_t offset, bool paused, bool res
     }
 }
 
-void ClientNode::StopStreamingMediaFile()
+void ClientNode::StopStreamingMediaFile(bool killtimer/* = true*/)
 {
     ASSERT_REACTOR_LOCKED(this);
 
@@ -3365,7 +3365,7 @@ void ClientNode::StopStreamingMediaFile()
 
         m_mediafile_streamer.reset();
 
-        if (TimerExists(TIMER_STOP_STREAM_MEDIAFILE_ID))
+        if (killtimer && TimerExists(TIMER_STOP_STREAM_MEDIAFILE_ID))
             StopTimer(TIMER_STOP_STREAM_MEDIAFILE_ID);
     }
 

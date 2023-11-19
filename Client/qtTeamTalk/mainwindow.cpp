@@ -2331,7 +2331,7 @@ void MainWindow::pttHotKey(bool active)
             bool tx = (TT_GetFlags(ttInst) & CLIENT_TX_VOICE) != CLIENT_CLOSED;
             pttfail = !TT_EnableVoiceTransmission(ttInst, !tx);
             emit(updateMyself());
-            playSoundEvent(SOUNDEVENT_HOTKEY);
+            playSoundEvent(!tx ? SOUNDEVENT_HOTKEY : SOUNDEVENT_HOTKEY_RELEASED);
             if (!tx)
                 transmitOn(STREAMTYPE_VOICE);
         }
@@ -2340,7 +2340,7 @@ void MainWindow::pttHotKey(bool active)
     {
         pttfail = !TT_EnableVoiceTransmission(ttInst, active) && active;
         emit(updateMyself());
-        playSoundEvent(SOUNDEVENT_HOTKEY);
+        playSoundEvent(active ? SOUNDEVENT_HOTKEY : SOUNDEVENT_HOTKEY_RELEASED);
         if (active)
             transmitOn(STREAMTYPE_VOICE);
     }

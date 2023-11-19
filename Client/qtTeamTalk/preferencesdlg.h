@@ -109,6 +109,7 @@ private:
     void slotEventSentChannelMsg();
     void slotEventBroadcastTextMsg();
     void slotEventHotKey();
+    void slotEventHotKeyReleased();
     void slotEventSilence();
     void slotEventNewVideo();
     void slotEventNewDesktop();

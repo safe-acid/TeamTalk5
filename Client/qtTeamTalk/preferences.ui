@@ -1622,20 +1622,20 @@
                </widget>
               </item>
               <item row="9" column="0">
-               <widget class="QLabel" name="label_22">
+               <widget class="QLabel" name="lbHotkeyReleased">
                 <property name="text">
-                 <string>Channel silent</string>
+                 <string>Hotkey released</string>
                 </property>
                 <property name="buddy">
-                 <cstring>chansilentEdit</cstring>
+                 <cstring>hotkeyReleasedEdit</cstring>
                 </property>
                </widget>
               </item>
               <item row="9" column="1">
-               <widget class="QLineEdit" name="chansilentEdit"/>
+               <widget class="QLineEdit" name="hotkeyReleasedEdit"/>
               </item>
               <item row="9" column="2">
-               <widget class="QToolButton" name="chansilentButton">
+               <widget class="QToolButton" name="hotkeyReleasedButton">
                 <property name="accessibleName">
                  <string>Browse</string>
                 </property>
@@ -1645,20 +1645,20 @@
                </widget>
               </item>
               <item row="10" column="0">
-               <widget class="QLabel" name="label_23">
+               <widget class="QLabel" name="label_22">
                 <property name="text">
-                 <string>Files updated</string>
+                 <string>Channel silent</string>
                 </property>
                 <property name="buddy">
-                 <cstring>fileupdEdit</cstring>
+                 <cstring>chansilentEdit</cstring>
                 </property>
                </widget>
               </item>
               <item row="10" column="1">
-               <widget class="QLineEdit" name="fileupdEdit"/>
+               <widget class="QLineEdit" name="chansilentEdit"/>
               </item>
               <item row="10" column="2">
-               <widget class="QToolButton" name="fileupdButton">
+               <widget class="QToolButton" name="chansilentButton">
                 <property name="accessibleName">
                  <string>Browse</string>
                 </property>
@@ -1668,20 +1668,20 @@
                </widget>
               </item>
               <item row="11" column="0">
-               <widget class="QLabel" name="label_24">
+               <widget class="QLabel" name="label_23">
                 <property name="text">
-                 <string>File transfer complete</string>
+                 <string>Files updated</string>
                 </property>
                 <property name="buddy">
-                 <cstring>transferdoneEdit</cstring>
+                 <cstring>fileupdEdit</cstring>
                 </property>
                </widget>
               </item>
               <item row="11" column="1">
-               <widget class="QLineEdit" name="transferdoneEdit"/>
+               <widget class="QLineEdit" name="fileupdEdit"/>
               </item>
               <item row="11" column="2">
-               <widget class="QToolButton" name="transferdoneButton">
+               <widget class="QToolButton" name="fileupdButton">
                 <property name="accessibleName">
                  <string>Browse</string>
                 </property>
@@ -1691,20 +1691,20 @@
                </widget>
               </item>
               <item row="12" column="0">
-               <widget class="QLabel" name="label_32">
+               <widget class="QLabel" name="label_24">
                 <property name="text">
-                 <string>New video session</string>
+                 <string>File transfer complete</string>
                 </property>
                 <property name="buddy">
-                 <cstring>videosessionEdit</cstring>
+                 <cstring>transferdoneEdit</cstring>
                 </property>
                </widget>
               </item>
               <item row="12" column="1">
-               <widget class="QLineEdit" name="videosessionEdit"/>
+               <widget class="QLineEdit" name="transferdoneEdit"/>
               </item>
               <item row="12" column="2">
-               <widget class="QToolButton" name="videosessionButton">
+               <widget class="QToolButton" name="transferdoneButton">
                 <property name="accessibleName">
                  <string>Browse</string>
                 </property>
@@ -1714,20 +1714,20 @@
                </widget>
               </item>
               <item row="13" column="0">
-               <widget class="QLabel" name="label_37">
+               <widget class="QLabel" name="label_32">
                 <property name="text">
-                 <string>New desktop session</string>
+                 <string>New video session</string>
                 </property>
                 <property name="buddy">
-                 <cstring>desktopsessionEdit</cstring>
+                 <cstring>videosessionEdit</cstring>
                 </property>
                </widget>
               </item>
               <item row="13" column="1">
-               <widget class="QLineEdit" name="desktopsessionEdit"/>
+               <widget class="QLineEdit" name="videosessionEdit"/>
               </item>
               <item row="13" column="2">
-               <widget class="QToolButton" name="desktopsessionButton">
+               <widget class="QToolButton" name="videosessionButton">
                 <property name="accessibleName">
                  <string>Browse</string>
                 </property>
@@ -1737,6 +1737,29 @@
                </widget>
               </item>
               <item row="14" column="0">
+               <widget class="QLabel" name="label_37">
+                <property name="text">
+                 <string>New desktop session</string>
+                </property>
+                <property name="buddy">
+                 <cstring>desktopsessionEdit</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="1">
+               <widget class="QLineEdit" name="desktopsessionEdit"/>
+              </item>
+              <item row="14" column="2">
+               <widget class="QToolButton" name="desktopsessionButton">
+                <property name="accessibleName">
+                 <string>Browse</string>
+                </property>
+                <property name="text">
+                 <string notr="true">...</string>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="0">
                <widget class="QLabel" name="label_intercept">
                 <property name="text">
                  <string>Intercepted by another user</string>
@@ -1746,10 +1769,10 @@
                 </property>
                </widget>
               </item>
-              <item row="14" column="1">
+              <item row="15" column="1">
                <widget class="QLineEdit" name="interceptEdit"/>
               </item>
-              <item row="14" column="2">
+              <item row="15" column="2">
                <widget class="QToolButton" name="interceptButton">
                 <property name="accessibleName">
                  <string>Browse</string>

@@ -232,6 +232,8 @@
 #define SETTINGS_SOUNDEVENT_BROADCASTMSG_DEFAULT            (SOUNDSPATH"/broadcast_msg.wav")
 #define SETTINGS_SOUNDEVENT_HOTKEY                  "soundevents/hotkey-pressed"
 #define SETTINGS_SOUNDEVENT_HOTKEY_DEFAULT                  (SOUNDSPATH"/hotkey.wav")
+#define SETTINGS_SOUNDEVENT_HOTKEY_RELEASED                  "soundevents/hotkey-released"
+#define SETTINGS_SOUNDEVENT_HOTKEY_RELEASED_DEFAULT                  (SOUNDSPATH"/hotkeyReleased.wav")
 #define SETTINGS_SOUNDEVENT_SILENCE                 "soundevents/channel-silent"
 #define SETTINGS_SOUNDEVENT_NEWVIDEO                "soundevents/new-video-session"
 #define SETTINGS_SOUNDEVENT_NEWVIDEO_DEFAULT                (SOUNDSPATH"/videosession.wav")

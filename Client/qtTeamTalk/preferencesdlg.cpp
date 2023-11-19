@@ -164,6 +164,8 @@ PreferencesDlg::PreferencesDlg(SoundDevice& devin, SoundDevice& devout, QWidget 
             this, &PreferencesDlg::slotEventBroadcastTextMsg);
     connect(ui.hotkeyButton, &QAbstractButton::clicked,
             this, &PreferencesDlg::slotEventHotKey);
+    connect(ui.hotkeyReleasedButton, &QAbstractButton::clicked,
+            this, &PreferencesDlg::slotEventHotKeyReleased);
     connect(ui.chansilentButton, &QAbstractButton::clicked,
             this, &PreferencesDlg::slotEventSilence);
     connect(ui.videosessionButton, &QAbstractButton::clicked,
@@ -640,6 +642,7 @@ void PreferencesDlg::slotTabChange(int index)
         ui.sentchannelmsgEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_CHANNELMSGSENT, SETTINGS_SOUNDEVENT_CHANNELMSGSENT_DEFAULT).toString());
         ui.bcastmsgEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_BROADCASTMSG, SETTINGS_SOUNDEVENT_BROADCASTMSG_DEFAULT).toString());
         ui.hotkeyEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_HOTKEY, SETTINGS_SOUNDEVENT_HOTKEY_DEFAULT).toString());
+        ui.hotkeyReleasedEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_HOTKEY_RELEASED, SETTINGS_SOUNDEVENT_HOTKEY_RELEASED_DEFAULT).toString());
         ui.chansilentEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_SILENCE).toString());
         ui.videosessionEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_NEWVIDEO, SETTINGS_SOUNDEVENT_NEWVIDEO_DEFAULT).toString());
         ui.desktopsessionEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_NEWDESKTOP, SETTINGS_SOUNDEVENT_NEWDESKTOP_DEFAULT).toString());
@@ -1032,6 +1035,7 @@ void PreferencesDlg::slotSaveChanges()
         ttSettings->setValue(SETTINGS_SOUNDEVENT_CHANNELMSGSENT, ui.sentchannelmsgEdit->text());
         ttSettings->setValue(SETTINGS_SOUNDEVENT_BROADCASTMSG, ui.bcastmsgEdit->text());
         ttSettings->setValue(SETTINGS_SOUNDEVENT_HOTKEY, ui.hotkeyEdit->text());
+        ttSettings->setValue(SETTINGS_SOUNDEVENT_HOTKEY_RELEASED, ui.hotkeyReleasedEdit->text());
         ttSettings->setValue(SETTINGS_SOUNDEVENT_SILENCE, ui.chansilentEdit->text());
         ttSettings->setValue(SETTINGS_SOUNDEVENT_NEWVIDEO, ui.videosessionEdit->text());
         ttSettings->setValue(SETTINGS_SOUNDEVENT_NEWDESKTOP, ui.desktopsessionEdit->text());
@@ -1468,6 +1472,13 @@ void PreferencesDlg::slotEventHotKey()
     QString filename = ui.hotkeyEdit->text();
     if(getSoundFile(filename))
         ui.hotkeyEdit->setText(filename);
+}
+
+void PreferencesDlg::slotEventHotKeyReleased()
+{
+    QString filename = ui.hotkeyReleasedEdit->text();
+    if(getSoundFile(filename))
+        ui.hotkeyReleasedEdit->setText(filename);
 }
 
 void PreferencesDlg::slotEventSilence()
@@ -2003,6 +2014,7 @@ void PreferencesDlg::slotSPackChange()
     ui.sentchannelmsgEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_CHANNELMSGSENT_DEFAULT, SETTINGS_SOUNDEVENT_CHANNELMSGSENT_DEFAULT).toString());
     ui.bcastmsgEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_BROADCASTMSG_DEFAULT, SETTINGS_SOUNDEVENT_BROADCASTMSG_DEFAULT).toString());
     ui.hotkeyEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_HOTKEY_DEFAULT, SETTINGS_SOUNDEVENT_HOTKEY_DEFAULT).toString());
+    ui.hotkeyReleasedEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_HOTKEY_RELEASED_DEFAULT, SETTINGS_SOUNDEVENT_HOTKEY_RELEASED_DEFAULT).toString());
     ui.videosessionEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_NEWVIDEO_DEFAULT, SETTINGS_SOUNDEVENT_NEWVIDEO_DEFAULT).toString());
     ui.desktopsessionEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_NEWDESKTOP_DEFAULT, SETTINGS_SOUNDEVENT_NEWDESKTOP_DEFAULT).toString());
     ui.interceptEdit->setText(ttSettings->value(SETTINGS_SOUNDEVENT_INTERCEPT_DEFAULT, SETTINGS_SOUNDEVENT_INTERCEPT_DEFAULT).toString());
@@ -2047,6 +2059,8 @@ void PreferencesDlg::slotSPackChange()
            ui.bcastmsgEdit->setText(QString("%1/%2/%3.wav").arg(SOUNDSPATH).arg(ui.spackBox->currentText()).arg(filename));
         if(filename == "hotkey")
            ui.hotkeyEdit->setText(QString("%1/%2/%3.wav").arg(SOUNDSPATH).arg(ui.spackBox->currentText()).arg(filename));
+        if(filename == "hotkeyReleased")
+           ui.hotkeyReleasedEdit->setText(QString("%1/%2/%3.wav").arg(SOUNDSPATH).arg(ui.spackBox->currentText()).arg(filename));
         if(filename == "videosession")
            ui.videosessionEdit->setText(QString("%1/%2/%3.wav").arg(SOUNDSPATH).arg(ui.spackBox->currentText()).arg(filename));
         if(filename == "desktopsession")

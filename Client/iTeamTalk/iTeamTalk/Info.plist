@@ -87,6 +87,20 @@
 		<string>audio</string>
 		<string>voip</string>
 	</array>
+        <key>NSPrivacyAccessedAPITypes</key>
+        <dict>
+          <key>NSPrivacyAccessedAPIType</key>
+          <string>UserDefaults</string>
+          <key>NSPrivacyAccessedAPITypeReasons</key>
+          <array>
+            <string>For storing user selections different from default</string>
+          </array>
+          <key>NSPrivacyAccessedAPIType</key>
+          <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+          <array>
+            <string>File timestamp usage unknown</string>
+          </array>
+        </dict>
 	<key>UILaunchImages</key>
 	<array>
 		<dict>
